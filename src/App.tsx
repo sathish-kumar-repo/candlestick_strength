@@ -37,7 +37,7 @@ function App() {
   const [history, setHistory] = useState<ComparisonHistory[]>(
     getComparisonHistory()
   );
-  const [showSettings, setShowSettings] = useState(false);
+  const [showSettings, setShowSettings] = useState(true);
   const [showHistory, setShowHistory] = useState(false);
 
   const [firstCandle, setFirstCandle] = useState<CandlestickData>(() => {
@@ -180,7 +180,7 @@ function App() {
         text: `Comparison Result: ${winner} wins! ${firstCandle.name} vs ${
           secondCandle.name
         } (${settings.includeVolume ? "with" : "without"} volume analysis)`,
-        url: window.location.href,
+        // url: window.location.href,
       });
     } catch (err) {
       // Fallback to clipboard

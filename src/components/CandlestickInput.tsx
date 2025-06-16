@@ -53,6 +53,21 @@ export const CandlestickInput: React.FC<CandlestickInputProps> = ({
     onBasePriceApply();
   };
 
+  const applyInitialPrice = () => {
+    if (!basePrice || !onBasePriceApply) return;
+
+    onUpdate({
+      ...candle,
+      open: basePrice,
+      high: basePrice,
+      low: basePrice,
+      close: basePrice,
+      volume: 0,
+    });
+
+    onBasePriceApply();
+  };
+
   const inputFields = [
     { key: "open" as const, label: "Open", icon: TrendingUp },
     { key: "high" as const, label: "High", icon: BarChart3 },
@@ -70,13 +85,22 @@ export const CandlestickInput: React.FC<CandlestickInputProps> = ({
         </div>
         <div className="flex items-center space-x-2">
           {basePrice && onBasePriceApply && (
-            <button
-              onClick={applyBasePrice}
-              className="px-3 py-1 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors duration-200"
-              title={`Apply base price $${basePrice}`}
-            >
-              Base: ${basePrice}
-            </button>
+            <>
+              <button
+                onClick={applyInitialPrice}
+                className="px-3 py-1 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors duration-200"
+                title={`Apply base price $${basePrice}`}
+              >
+                Base: ${basePrice}
+              </button>
+              <button
+                onClick={applyBasePrice}
+                className="px-3 py-1 text-xs bg-green-100 hover:bg-green-200 text-green-700 rounded-lg transition-colors duration-200"
+                title={`Apply base price $${basePrice}`}
+              >
+                Random
+              </button>
+            </>
           )}
           <button
             onClick={() => setIsEditing(!isEditing)}
