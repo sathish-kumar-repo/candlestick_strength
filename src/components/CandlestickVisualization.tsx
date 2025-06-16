@@ -19,7 +19,10 @@ export const CandlestickVisualization: React.FC<
   const bodyHeight = Math.abs(close - open);
 
   // Calculate positions (normalized to 0-100 scale)
-  const getY = (price: number) => ((high - price) / range) * 200 + 50; // 200px height, 50px margin
+  const getY = (price: number) => {
+    if (range === 0) return 150;
+    return ((high - price) / range) * 200 + 50;
+  };
 
   const isBullish = close > open;
   const candleColor = isBullish
@@ -89,7 +92,7 @@ export const CandlestickVisualization: React.FC<
             x="80"
             y={getY(bodyTop)}
             width="40"
-            height={Math.max((bodyHeight / range) * 200, 2)}
+            height={range === 0 ? 2 : Math.max((bodyHeight / range) * 200, 2)}
             className={candleColor}
             fillOpacity={fillOpacity}
             strokeWidth="2"
