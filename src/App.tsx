@@ -199,9 +199,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 dark:from-neutral-950 dark:via-neutral-950 dark:to-neutral-950 text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-neutral-950 text-white">
       {/* Header */}
-      <div className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm border-b border-gray-200/50 dark:border-neutral-700 sticky top-0 z-10">
+      <div className="bg-neutral-900/80 backdrop-blur-sm border-b border-neutral-700 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center space-x-3">
@@ -209,10 +209,10 @@ function App() {
                 <BarChart3 className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-xl sm:text-2xl font-bold text-white">
                   Candlestick Strength Analyzer
                 </h1>
-                <p className="text-sm text-gray-600 dark:text-neutral-400">
+                <p className="text-sm text-neutral-400">
                   Compare and analyze trading candlestick patterns with advanced
                   metrics
                 </p>
@@ -224,8 +224,8 @@ function App() {
                 onClick={() => setShowHistory(!showHistory)}
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200 text-sm ${
                   showHistory
-                    ? "bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200"
-                    : "bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700"
+                    ? "bg-purple-900 text-purple-200"
+                    : "bg-neutral-800 hover:bg-neutral-700"
                 }`}
               >
                 <HistoryIcon className="w-4 h-4" />
@@ -236,8 +236,8 @@ function App() {
                 onClick={() => setShowSettings(!showSettings)}
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200 text-sm ${
                   showSettings
-                    ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200"
-                    : "bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700"
+                    ? "bg-blue-900 text-blue-200"
+                    : "bg-neutral-800 hover:bg-neutral-700"
                 }`}
               >
                 <SettingsIcon className="w-4 h-4" />
@@ -246,7 +246,7 @@ function App() {
 
               <button
                 onClick={generateRandomPair}
-                className="flex items-center space-x-2 px-3 py-2 bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 rounded-lg transition-colors duration-200 text-sm"
+                className="flex items-center space-x-2 px-3 py-2 bg-neutral-800 hover:bg-neutral-700 rounded-lg transition-colors duration-200 text-sm"
               >
                 <Shuffle className="w-4 h-4" />
                 <span className="hidden sm:inline">Random</span>
@@ -256,7 +256,7 @@ function App() {
                 <>
                   <button
                     onClick={exportResults}
-                    className="flex items-center space-x-2 px-3 py-2 bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-lg transition-colors duration-200 text-sm"
+                    className="flex items-center space-x-2 px-3 py-2 bg-emerald-900 text-emerald-300 hover:bg-emerald-800 rounded-lg transition-colors duration-200 text-sm"
                   >
                     <Download className="w-4 h-4" />
                     <span className="hidden sm:inline">Export</span>
@@ -264,7 +264,7 @@ function App() {
 
                   <button
                     onClick={shareResults}
-                    className="flex items-center space-x-2 px-3 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-lg transition-colors duration-200 text-sm"
+                    className="flex items-center space-x-2 px-3 py-2 bg-blue-900 text-blue-300 hover:bg-blue-800 rounded-lg transition-colors duration-200 text-sm"
                   >
                     <Share className="w-4 h-4" />
                     <span className="hidden sm:inline">Share</span>
@@ -324,10 +324,10 @@ function App() {
         </div>
 
         {isAnalyzing && (
-          <div className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200/50 dark:border-neutral-700 mb-8">
+          <div className="bg-neutral-900/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-neutral-700 mb-8">
             <div className="flex items-center justify-center space-x-3">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-500"></div>
-              <span className="text-gray-600 dark:text-neutral-300">
+              <span className="text-neutral-300">
                 Analyzing candlestick strength...
               </span>
             </div>
@@ -345,14 +345,14 @@ function App() {
       </div>
 
       {/* Footer */}
-      <div className="bg-white/50 dark:bg-neutral-900/50 border-t border-gray-200/50 dark:border-neutral-700 mt-16">
+      <div className="bg-neutral-900/50 border-t border-neutral-700 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-            <div className="text-sm text-gray-600 dark:text-neutral-400">
+            <div className="text-sm text-neutral-400">
               Professional candlestick pattern analysis tool with advanced
               strength metrics
             </div>
-            <div className="flex items-center space-x-4 text-xs text-gray-500 dark:text-neutral-500">
+            <div className="flex items-center space-x-4 text-xs text-neutral-500">
               <span>Body Strength</span>
               <span>•</span>
               <span>Pattern Recognition</span>
