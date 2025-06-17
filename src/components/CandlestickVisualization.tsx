@@ -15,10 +15,8 @@ export const CandlestickVisualization: React.FC<
   const { open, high, low, close } = candle;
   const range = high - low;
   const bodyTop = Math.max(open, close);
-  // const bodyBottom = Math.min(open, close);
   const bodyHeight = Math.abs(close - open);
 
-  // Calculate positions (normalized to 0-100 scale)
   const getY = (price: number) => {
     if (range === 0) return 150;
     return ((high - price) / range) * 200 + 50;
@@ -32,20 +30,20 @@ export const CandlestickVisualization: React.FC<
 
   return (
     <div
-      className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-500"
+      className="bg-neutral-950 text-white rounded-xl p-6 shadow-lg border border-neutral-800 hover:shadow-xl transition-all duration-500"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
           <div className={`w-4 h-4 rounded-full ${color}`}></div>
-          <h3 className="text-xl font-bold text-gray-800">{title}</h3>
+          <h3 className="text-xl font-bold text-white">{title}</h3>
         </div>
         <div
           className={`px-3 py-1 rounded-full text-xs font-medium ${
             isBullish
-              ? "bg-emerald-100 text-emerald-800"
-              : "bg-red-100 text-red-800"
+              ? "bg-emerald-900 text-emerald-300"
+              : "bg-red-900 text-red-300"
           }`}
         >
           {isBullish ? "Bullish" : "Bearish"}
@@ -70,7 +68,7 @@ export const CandlestickVisualization: React.FC<
               <path
                 d="M 20 0 L 0 0 0 20"
                 fill="none"
-                stroke="#f3f4f6"
+                stroke="#1f2937"
                 strokeWidth="1"
               />
             </pattern>
@@ -103,7 +101,7 @@ export const CandlestickVisualization: React.FC<
           <text
             x="130"
             y={getY(high) + 5}
-            className="text-xs fill-gray-600"
+            className="text-xs fill-neutral-400"
             fontSize="10"
           >
             H: ${high.toFixed(2)}
@@ -111,7 +109,7 @@ export const CandlestickVisualization: React.FC<
           <text
             x="130"
             y={getY(low) + 5}
-            className="text-xs fill-gray-600"
+            className="text-xs fill-neutral-400"
             fontSize="10"
           >
             L: ${low.toFixed(2)}
@@ -119,7 +117,7 @@ export const CandlestickVisualization: React.FC<
           <text
             x="130"
             y={getY(open) + 5}
-            className="text-xs fill-gray-600"
+            className="text-xs fill-neutral-400"
             fontSize="10"
           >
             O: ${open.toFixed(2)}
@@ -127,7 +125,7 @@ export const CandlestickVisualization: React.FC<
           <text
             x="130"
             y={getY(close) + 5}
-            className="text-xs fill-gray-600"
+            className="text-xs fill-neutral-400"
             fontSize="10"
           >
             C: ${close.toFixed(2)}
@@ -135,23 +133,23 @@ export const CandlestickVisualization: React.FC<
         </svg>
 
         {/* Stats overlay */}
-        <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+        <div className="mt-4 grid grid-cols-2 gap-4 text-sm text-neutral-300">
           <div className="space-y-2">
             <div className="flex justify-between">
-              <span className="text-gray-600">Range:</span>
+              <span className="text-neutral-400">Range:</span>
               <span className="font-medium">${range.toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Body:</span>
+              <span className="text-neutral-400">Body:</span>
               <span className="font-medium">${bodyHeight.toFixed(2)}</span>
             </div>
           </div>
           <div className="space-y-2">
             <div className="flex justify-between">
-              <span className="text-gray-600">Change:</span>
+              <span className="text-neutral-400">Change:</span>
               <span
                 className={`font-medium ${
-                  isBullish ? "text-emerald-600" : "text-red-600"
+                  isBullish ? "text-emerald-400" : "text-red-400"
                 }`}
               >
                 {isBullish ? "+" : ""}
@@ -159,7 +157,7 @@ export const CandlestickVisualization: React.FC<
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Volume:</span>
+              <span className="text-neutral-400">Volume:</span>
               <span className="font-medium">
                 {(candle.volume / 1000).toFixed(0)}K
               </span>

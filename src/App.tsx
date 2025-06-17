@@ -57,7 +57,6 @@ function App() {
   const [comparison, setComparison] = useState<ComparisonResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-  // Update pattern names when candles change
   useEffect(() => {
     setFirstCandle((prev) => ({
       ...prev,
@@ -77,7 +76,6 @@ function App() {
     secondCandle.close,
   ]);
 
-  // Auto-link second candle when first candle changes
   useEffect(() => {
     if (settings.autoLinkCandles) {
       setSecondCandle((prev) => ({
@@ -88,7 +86,6 @@ function App() {
   }, [firstCandle.close, settings.autoLinkCandles]);
 
   useEffect(() => {
-    // Automatically compare when data changes
     const timer = setTimeout(() => {
       setIsAnalyzing(true);
       setTimeout(() => {
@@ -100,7 +97,6 @@ function App() {
         setComparison(result);
         setIsAnalyzing(false);
 
-        // Save to history
         const historyItem: ComparisonHistory = {
           id: Math.random().toString(36).substr(2, 9),
           timestamp: new Date(),
@@ -117,7 +113,6 @@ function App() {
     return () => clearTimeout(timer);
   }, [firstCandle, secondCandle, settings.includeVolume]);
 
-  // Save settings when they change
   useEffect(() => {
     saveAppSettings(settings);
   }, [settings]);
@@ -180,10 +175,8 @@ function App() {
         text: `Comparison Result: ${winner} wins! ${firstCandle.name} vs ${
           secondCandle.name
         } (${settings.includeVolume ? "with" : "without"} volume analysis)`,
-        // url: window.location.href,
       });
-    } catch (err) {
-      // Fallback to clipboard
+    } catch {
       const text = `Candlestick Strength Comparison\nWinner: ${winner}\n${
         firstCandle.name
       } vs ${secondCandle.name}\nAnalysis: ${
@@ -205,44 +198,34 @@ function App() {
     setShowHistory(false);
   };
 
-  const handleFirstCandleUpdate = (candle: CandlestickData) => {
-    setFirstCandle(candle);
-  };
-
-  const handleSecondCandleUpdate = (candle: CandlestickData) => {
-    setSecondCandle(candle);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 dark:from-neutral-950 dark:via-neutral-950 dark:to-neutral-950 text-gray-900 dark:text-white">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-10">
+      <div className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm border-b border-gray-200/50 dark:border-neutral-700 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            {/* Left: Title and Icon */}
             <div className="flex items-center space-x-3">
               <div className="p-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg">
                 <BarChart3 className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                   Candlestick Strength Analyzer
                 </h1>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-neutral-400">
                   Compare and analyze trading candlestick patterns with advanced
                   metrics
                 </p>
               </div>
             </div>
 
-            {/* Right: Buttons */}
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setShowHistory(!showHistory)}
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200 text-sm ${
                   showHistory
-                    ? "bg-purple-100 text-purple-700"
-                    : "bg-gray-100 hover:bg-gray-200"
+                    ? "bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200"
+                    : "bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700"
                 }`}
               >
                 <HistoryIcon className="w-4 h-4" />
@@ -253,8 +236,8 @@ function App() {
                 onClick={() => setShowSettings(!showSettings)}
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200 text-sm ${
                   showSettings
-                    ? "bg-blue-100 text-blue-700"
-                    : "bg-gray-100 hover:bg-gray-200"
+                    ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200"
+                    : "bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700"
                 }`}
               >
                 <SettingsIcon className="w-4 h-4" />
@@ -263,7 +246,7 @@ function App() {
 
               <button
                 onClick={generateRandomPair}
-                className="flex items-center space-x-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200 text-sm"
+                className="flex items-center space-x-2 px-3 py-2 bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 rounded-lg transition-colors duration-200 text-sm"
               >
                 <Shuffle className="w-4 h-4" />
                 <span className="hidden sm:inline">Random</span>
@@ -273,7 +256,7 @@ function App() {
                 <>
                   <button
                     onClick={exportResults}
-                    className="flex items-center space-x-2 px-3 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 rounded-lg transition-colors duration-200 text-sm"
+                    className="flex items-center space-x-2 px-3 py-2 bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-200 dark:hover:bg-emerald-800 rounded-lg transition-colors duration-200 text-sm"
                   >
                     <Download className="w-4 h-4" />
                     <span className="hidden sm:inline">Export</span>
@@ -281,7 +264,7 @@ function App() {
 
                   <button
                     onClick={shareResults}
-                    className="flex items-center space-x-2 px-3 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors duration-200 text-sm"
+                    className="flex items-center space-x-2 px-3 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-lg transition-colors duration-200 text-sm"
                   >
                     <Share className="w-4 h-4" />
                     <span className="hidden sm:inline">Share</span>
@@ -293,9 +276,8 @@ function App() {
         </div>
       </div>
 
-      {/* Main content */}
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Settings and History panels */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {showSettings && (
             <SettingsPanel settings={settings} onSettingsChange={setSettings} />
@@ -309,11 +291,10 @@ function App() {
           )}
         </div>
 
-        {/* Input section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <CandlestickInput
             candle={firstCandle}
-            onUpdate={handleFirstCandleUpdate}
+            onUpdate={setFirstCandle}
             title="First Candlestick"
             color="bg-emerald-500"
             basePrice={settings.basePrice}
@@ -321,7 +302,7 @@ function App() {
           />
           <CandlestickInput
             candle={secondCandle}
-            onUpdate={handleSecondCandleUpdate}
+            onUpdate={setSecondCandle}
             title="Second Candlestick"
             color="bg-blue-500"
             basePrice={settings.basePrice}
@@ -329,7 +310,6 @@ function App() {
           />
         </div>
 
-        {/* Visualization section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <CandlestickVisualization
             candle={firstCandle}
@@ -343,19 +323,17 @@ function App() {
           />
         </div>
 
-        {/* Analysis loading state */}
         {isAnalyzing && (
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200/50 mb-8">
+          <div className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200/50 dark:border-neutral-700 mb-8">
             <div className="flex items-center justify-center space-x-3">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-500"></div>
-              <span className="text-gray-600">
+              <span className="text-gray-600 dark:text-neutral-300">
                 Analyzing candlestick strength...
               </span>
             </div>
           </div>
         )}
 
-        {/* Results section */}
         {comparison && !isAnalyzing && (
           <ComparisonResults
             comparison={comparison}
@@ -367,14 +345,14 @@ function App() {
       </div>
 
       {/* Footer */}
-      <div className="bg-white/50 border-t border-gray-200/50 mt-16">
+      <div className="bg-white/50 dark:bg-neutral-900/50 border-t border-gray-200/50 dark:border-neutral-700 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 dark:text-neutral-400">
               Professional candlestick pattern analysis tool with advanced
               strength metrics
             </div>
-            <div className="flex items-center space-x-4 text-xs text-gray-500">
+            <div className="flex items-center space-x-4 text-xs text-gray-500 dark:text-neutral-500">
               <span>Body Strength</span>
               <span>•</span>
               <span>Pattern Recognition</span>
